@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {FormControl, FormGroup} from '@angular/forms';
 
 @Component({
   selector: 'app-notepad',
@@ -7,9 +8,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NotepadComponent implements OnInit {
 
-  constructor() { }
+  public notepadForm: FormGroup;
 
-  ngOnInit() {
+  constructor() {
   }
 
+  ngOnInit() {
+    this.notepadFormInit();
+  }
+
+  private notepadFormInit(): void {
+    this.notepadForm = new FormGroup({
+      'notepadName': new FormControl('')
+    });
+  }
 }
