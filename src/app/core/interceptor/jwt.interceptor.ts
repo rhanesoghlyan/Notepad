@@ -17,8 +17,6 @@ export class JwtInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     if (!request.headers.has('Authorization')) {
-      console.log('WORKED');
-
       const token: string = environment.accessToken;
 
       const authReq = !!token ? request.clone({
