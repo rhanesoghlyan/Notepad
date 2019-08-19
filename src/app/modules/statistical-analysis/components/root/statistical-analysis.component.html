@@ -1,0 +1,10 @@
+<div class="statistical-analysis-wrapper">
+  <div class="statistical-analysis-wrapper__close-stats-btn-wrapper">
+    <button [routerLink]="'/notepad'" type="button" class="btn btn-light">Close Stats</button>
+  </div>
+
+  <app-chart [seriesName]="'Gist count per five second'" [yAxisTitle]="'Number of Gists'"
+             [title]="'Gists created'"></app-chart>
+  <app-chart [chartDataType]="chartDataType.FILES" [seriesName]="'File count per five second'"
+             [yAxisTitle]="'Number of Files'" [title]="'Files per Gist'"></app-chart>
+</div>

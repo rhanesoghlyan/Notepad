@@ -3,7 +3,12 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  accessToken: '',
+  storageKey: 'notepad-app-',
+  gistUrl: 'https://api.github.com/gists',
+  gistDescription: 'Notepad Application',
+  gistFileName: '43e883ca02ebc687f09c1b27b7ac1039'
 };
 
 /*

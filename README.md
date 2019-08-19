@@ -1,14 +1,28 @@
 # Notepad
+> Angular 7 application integrated with GitHub Gists API
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.1.
+## Getting Started
 
-## Development server
+#####  For running the app after clone do the following steps in the command line run
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+###### 1. Import a Git repository using the command line
+```shell
+git clone https://github.com/rhanesoghlyan/Notepad.git
+```
 
-## Code scaffolding
+###### 2. Install npm dependencies
+```shell
+npm install
+```
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+###### 3. Generate a [Personal Access Token](https://github.com/settings/tokens) and set it into the environment file
+
+###### 4. Run dev server
+```shell
+ng serve
+```
+
+Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
 ## Build
 
@@ -22,6 +36,11 @@ Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.
 
 Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
 
-## Further help
+## Development process
+* For styling the app used Bootstrap 4. Styles mentioned in the description of the task is not fully implemented.
+* Always I'm creating core and shared modules (small shared modules) for Angular projects. But in our project scope I did not consider necessary for using them.  
+* I did not create models for GitHub Gists API responses. 
+* For showing charts used Angular-highcharts
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+## Notes
+* For testing notepad page please do hard reload (load page without caches) 
