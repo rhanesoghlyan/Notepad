@@ -9,6 +9,8 @@ import {Component, Input, OnInit} from '@angular/core';
 export class ChartComponent implements OnInit {
   @Input()
   public title: string = '';
+  @Input()
+  public yAxisTitle: string = '';
 
   public chart: Chart;
 
@@ -32,12 +34,18 @@ export class ChartComponent implements OnInit {
       credits: {
         enabled: false
       },
+      yAxis: {
+        title: {
+          text: this.yAxisTitle
+        }
+      },
       series: [
         {
           type: 'line',
           name: 'Time',
           data: [7.0, 6.9, 9.5, 14.5, 18.4, 21.5, 91.2, 26.5, 23.3, 18.3, 13.9, 9.6]
-        }]
+        }
+      ]
     });
 
     this.addPoint();
