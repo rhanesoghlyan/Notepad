@@ -1,6 +1,8 @@
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+
 import {ValidatorHelper} from '@core/helpers/validator.helper';
+import {NoteFormData} from '@core/models/note.models';
 
 @Component({
   selector: 'app-note-field',
@@ -17,6 +19,9 @@ export class NoteFieldComponent implements OnInit {
   public description: string = '';
   @Input()
   public isCreationMode: boolean = false;
+
+  @Output()
+  public addNewNote: EventEmitter<NoteFormData> = new EventEmitter<NoteFormData>();
 
   public validationConfigs = ValidatorHelper.getNoteValidationConfigs();
 
@@ -40,7 +45,7 @@ export class NoteFieldComponent implements OnInit {
         }
       }
     } else {
-      // TODO add logic to create new note
+      this.addNewNote.emit(this.noteForm.getRawValue());
     }
   }
 

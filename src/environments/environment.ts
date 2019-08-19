@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  accessToken: ''
+  accessToken: '',
+  storageKey: 'notepad-app-'
 };
 
 /*

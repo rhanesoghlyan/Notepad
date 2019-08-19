@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup} from '@angular/forms';
+import {NoteFormData} from '@core/models/note.models';
 
 @Component({
   selector: 'app-notepad',
@@ -15,6 +16,10 @@ export class NotepadComponent implements OnInit {
 
   ngOnInit() {
     this.notepadFormInit();
+  }
+
+  public createNewNote(formData: NoteFormData): void {
+    // TODO add logic for creating new note
   }
 
   public saveAllData() {

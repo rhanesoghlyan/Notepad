@@ -11,7 +11,7 @@
     </div>
   </form>
 
-  <app-note-field [isCreationMode]="true"></app-note-field>
+  <app-note-field (addNewNote)="createNewNote($event)" [isCreationMode]="true"></app-note-field>
 </div>
 
 <div class="created-notes-wrapper">
