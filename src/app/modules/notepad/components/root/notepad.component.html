@@ -2,21 +2,35 @@
   <h4>Notepad Application</h4>
 
   <button type="button" [routerLink]="'/statistical-analysis'" class="btn btn-light">View Stats</button>
-  <button type="button" (click)="saveAllData()" class="btn btn-primary">Save</button>
-  <button type="button" (click)="deleteNotepad()" class="btn btn-danger">Delete</button>
+  <button type="button" (click)="saveNotepadData()" class="btn btn-primary">Save</button>
+  <button [disabled]="!gistId" type="button" (click)="deleteNotepad()" class="btn btn-danger">Delete</button>
 
   <form [formGroup]="notepadForm">
-    <div class="form-group">
-      <input formControlName="notepadName" type="text" class="form-control" placeholder="My notepad title">
+    <div class="form-group" *ngIf="notepadForm.get('notepadName'); let titleControl">
+      <input formControlName="notepadName" type="text" [value]="notepadTitle" class="form-control"
+             placeholder="My notepad title">
+
+      <!--Can be common component for using multiple time-->
+      <div *ngIf="titleControl.invalid && titleControl.touched">
+        <span *ngIf="titleControl.hasError('required')">
+          Title of notepad is required
+        </span>
+        <span *ngIf="titleControl.hasError('minlength')">
+          Title should be at least {{validationConfigs.title.minLength}} characters long
+        </span>
+        <span *ngIf="titleControl.hasError('maxlength')">
+          The length of title must be {{validationConfigs.title.maxLength}} characters or fewer!
+        </span>
+      </div>
     </div>
   </form>
 
-  <app-note-field (addNewNote)="createNewNote($event)" [isCreationMode]="true"></app-note-field>
+  <app-note-field (addNewNote)="createNewNote($event)" [gistId]="gistId" [isCreationMode]="true"></app-note-field>
 </div>
 
 <div class="created-notes-wrapper">
-  <div>
-    <app-note-field [title]="'My Title'" [description]="'My Description'"></app-note-field>
-    <button class="btn btn-danger" (click)="deleteNote()">Delete</button>
+  <div *ngFor="let note of createdNotes;trackBy: trackByNotes; let i = index">
+    <app-note-field [title]="note?.title" [description]="note?.description"></app-note-field>
+    <button class="btn btn-danger" (click)="deleteNote(i)">Delete</button>
   </div>
 </div>

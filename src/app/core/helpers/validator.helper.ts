@@ -11,4 +11,13 @@ export class ValidatorHelper {
       }
     };
   }
+
+  static getNotepadValidationConfigs() {
+    return {
+      title: {
+        minLength: 5,
+        maxLength: 255,
+      }
+    };
+  }
 }

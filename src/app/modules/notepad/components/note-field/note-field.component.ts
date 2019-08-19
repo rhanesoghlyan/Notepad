@@ -2,7 +2,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
 import {ValidatorHelper} from '@core/helpers/validator.helper';
-import {NoteFormData} from '@core/models/note.models';
+import {NoteFormDataModel} from '@core/models/note.models';
 
 @Component({
   selector: 'app-note-field',
@@ -19,9 +19,11 @@ export class NoteFieldComponent implements OnInit {
   public description: string = '';
   @Input()
   public isCreationMode: boolean = false;
+  @Input()
+  public gistId: string = '';
 
   @Output()
-  public addNewNote: EventEmitter<NoteFormData> = new EventEmitter<NoteFormData>();
+  public addNewNote: EventEmitter<NoteFormDataModel> = new EventEmitter<NoteFormDataModel>();
 
   public validationConfigs = ValidatorHelper.getNoteValidationConfigs();
 
@@ -36,7 +38,7 @@ export class NoteFieldComponent implements OnInit {
     event.stopPropagation();
     event.preventDefault();
 
-    if (this.noteForm.invalid) {
+    if (this.noteForm.invalid || !this.gistId) {
       const formControls = this.noteForm.controls;
 
       for (const item in formControls) {
@@ -46,6 +48,7 @@ export class NoteFieldComponent implements OnInit {
       }
     } else {
       this.addNewNote.emit(this.noteForm.getRawValue());
+      this.noteForm.reset();
     }
   }
 
