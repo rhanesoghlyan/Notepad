@@ -1,5 +1,12 @@
 import {Chart} from 'angular-highcharts';
+import * as Highcharts from 'highcharts';
+import {Observable, Subject, timer} from 'rxjs';
+import {switchMap, takeUntil} from 'rxjs/operators';
 import {Component, Input, OnInit} from '@angular/core';
+
+import {StatisticalAnalysisService} from '@core/services/api/statistical-analysis.service';
+import {ChartDataType} from '@core/constants/chart-data.constants';
+import {DateService} from '@core/services';
 
 @Component({
   selector: 'app-chart',
@@ -11,20 +18,46 @@ export class ChartComponent implements OnInit {
   public title: string = '';
   @Input()
   public yAxisTitle: string = '';
+  @Input()
+  public seriesName: string = '';
+  @Input()
+  public chartDataType: string = ChartDataType.GISTS;
 
+  public dates: Array<string> = [];
   public chart: Chart;
 
-  constructor() {
+  private unsubscribe$: Subject<void> = new Subject<void>();
+  private refreshInterval$: Observable<string> = timer(0, 5000)
+    .pipe(
+      takeUntil(this.unsubscribe$),
+      switchMap(() => {
+        return this.statisticalAnalysisService.getRecentlyCreatedDists(DateService.getDate(), 100);
+      })
+    );
+
+  constructor(private statisticalAnalysisService: StatisticalAnalysisService) {
   }
 
   ngOnInit() {
     this.chartInit();
+    this.updateChartData();
   }
 
   public chartInit(): void {
-    // TODO change static data to dinamic
+    const chart = new Chart(this.getOptionsOfChart());
 
-    const chart = new Chart({
+    this.chart = chart;
+    chart.ref$.subscribe(console.log);
+  }
+
+  public addPoint(createdGistsPerFiveSecond: number): void {
+    if (this.chart) {
+      this.chart.addPoint(createdGistsPerFiveSecond);
+    }
+  }
+
+  private getOptionsOfChart(): Highcharts.Options {
+    return {
       chart: {
         type: 'line'
       },
@@ -37,31 +70,41 @@ export class ChartComponent implements OnInit {
       yAxis: {
         title: {
           text: this.yAxisTitle
-        }
+        },
+        allowDecimals: false
+      },
+      xAxis: {
+        categories: this.dates,
+        title: {
+          text: 'Datetime'
+        },
       },
       series: [
         {
           type: 'line',
-          name: 'Time',
-          data: [7.0, 6.9, 9.5, 14.5, 18.4, 21.5, 91.2, 26.5, 23.3, 18.3, 13.9, 9.6]
+          name: this.seriesName,
+          data: []
         }
       ]
+    };
+  }
+
+  private updateChartData(): void {
+    this.unsubscribe$.next();
+
+    this.refreshInterval$.subscribe((data) => {
+      this.dates.push(DateService.getMinutesAndSeconds());
+      this.addPoint(this.chartDataType === ChartDataType.FILES ? this.getCountOfFiles(data) : data.length);
     });
-
-    this.addPoint();
-    this.addPoint();
-    this.chart = chart;
-
-    chart.ref$.subscribe(console.log);
   }
 
-  public addPoint() {
-    if (this.chart) {
-      this.chart.addPoint(Math.floor(Math.random() * 10));
+  private getCountOfFiles(gists): number {
+    let countOfFiles = 0;
+
+    for (const gist of gists) {
+      countOfFiles += Object.keys(gist.files).length;
     }
-  }
 
-  public removePoint() {
-    this.chart.removePoint(this.chart.ref.series[0].data.length - 1);
+    return countOfFiles;
   }
 }

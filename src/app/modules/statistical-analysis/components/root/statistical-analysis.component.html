@@ -1,2 +1,4 @@
-<app-chart [yAxisTitle]="'Number of Gists'" [title]="'Gists created'"></app-chart>
-<app-chart [yAxisTitle]="'Number of Files'" [title]="'Files per Gist'"></app-chart>
+<app-chart [seriesName]="'Gist count per five second'" [yAxisTitle]="'Number of Gists'"
+           [title]="'Gists created'"></app-chart>
+<app-chart [chartDataType]="chartDataType.FILES" [seriesName]="'File count per five second'"
+           [yAxisTitle]="'Number of Files'" [title]="'Files per Gist'"></app-chart>
