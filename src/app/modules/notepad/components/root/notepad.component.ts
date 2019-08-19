@@ -17,6 +17,18 @@ export class NotepadComponent implements OnInit {
     this.notepadFormInit();
   }
 
+  public saveAllData() {
+    // TODO add logic for saving all data
+  }
+
+  public deleteNotepad() {
+    // TODO add logic for deleting notepad
+  }
+
+  public deleteNote(): void {
+    // TODO add logic for removing note
+  }
+
   private notepadFormInit(): void {
     this.notepadForm = new FormGroup({
       'notepadName': new FormControl('')

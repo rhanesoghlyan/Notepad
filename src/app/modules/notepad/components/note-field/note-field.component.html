@@ -1,4 +1,4 @@
-<form [formGroup]="noteForm">
+<form [formGroup]="noteForm" (ngSubmit)="createNewNote($event)">
   <div class="note-field-wrapper">
     <div class="form-group" *ngIf="noteForm.get('title'); let titleControl">
       <input formControlName="title" type="text" [value]="title" class="form-control" placeholder="Enter note title...">
@@ -33,5 +33,7 @@
         </span>
       </div>
     </div>
+
+    <button *ngIf="isCreationMode" [disabled]="noteForm.invalid" type="submit" class="btn btn-success">Add</button>
   </div>
 </form>

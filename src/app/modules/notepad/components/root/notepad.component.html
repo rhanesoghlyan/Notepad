@@ -1,11 +1,22 @@
 <div class="notepad-wrapper">
   <h4>Notepad Application</h4>
 
+  <button type="button" [routerLink]="'/statistical-analysis'" class="btn btn-light">View Stats</button>
+  <button type="button" (click)="saveAllData()" class="btn btn-primary">Save</button>
+  <button type="button" (click)="deleteNotepad()" class="btn btn-danger">Delete</button>
+
   <form [formGroup]="notepadForm">
     <div class="form-group">
       <input formControlName="notepadName" type="text" class="form-control" placeholder="My notepad title">
     </div>
   </form>
 
-  <app-note-field></app-note-field>
+  <app-note-field [isCreationMode]="true"></app-note-field>
+</div>
+
+<div class="created-notes-wrapper">
+  <div>
+    <app-note-field [title]="'My Title'" [description]="'My Description'"></app-note-field>
+    <button class="btn btn-danger" (click)="deleteNote()">Delete</button>
+  </div>
 </div>
