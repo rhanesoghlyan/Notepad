@@ -18,7 +18,9 @@ import {CoreModule} from './core/core.module';
     HttpClientModule,
   ],
   providers: [
-    {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
+    {
+      provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true
+    },
   ],
   bootstrap: [
     AppComponent

@@ -10,7 +10,7 @@ import {NotepadGist} from '@core/models/gist.models';
 @Component({
   selector: 'app-notepad',
   templateUrl: './notepad.component.html',
-  styleUrls: ['./notepad.component.sass']
+  styleUrls: ['./notepad.component.scss']
 })
 export class NotepadComponent implements OnInit {
   public notepadForm: FormGroup;

@@ -7,7 +7,7 @@ import {NoteFormDataModel} from '@core/models/note.models';
 @Component({
   selector: 'app-note-field',
   templateUrl: './note-field.component.html',
-  styleUrls: ['./note-field.component.sass']
+  styleUrls: ['./note-field.component.scss']
 })
 export class NoteFieldComponent implements OnInit {
 
