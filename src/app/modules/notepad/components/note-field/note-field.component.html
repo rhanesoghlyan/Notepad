@@ -1,7 +1,8 @@
 <form [formGroup]="noteForm" (ngSubmit)="createNewNote($event)">
   <div class="note-field-wrapper">
     <div class="form-group" *ngIf="noteForm.get('title'); let titleControl">
-      <input formControlName="title" type="text" [value]="title" class="form-control" placeholder="Enter note title...">
+        <input formControlName="title" type="text" [value]="title" class="form-control"
+               placeholder="Enter note title...">
 
       <!--Can be common component for using multiple time-->
       <div *ngIf="titleControl.invalid && titleControl.touched">
@@ -34,6 +35,7 @@
       </div>
     </div>
 
-    <button *ngIf="isCreationMode" [disabled]="noteForm.invalid || !gistId" type="submit" class="btn btn-success">Add</button>
+    <button *ngIf="isCreationMode" [disabled]="noteForm.invalid || !gistId" type="submit" class="btn btn-success">Add
+    </button>
   </div>
 </form>
