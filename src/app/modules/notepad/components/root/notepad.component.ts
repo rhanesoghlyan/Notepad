@@ -17,8 +17,7 @@ export class NotepadComponent implements OnInit {
   public notepadTitle: string = '';
   public createdNotes: Array<NoteFormDataModel> = [];
   public validationConfigs = ValidatorHelper.getNotepadValidationConfigs();
-
-  private gistId: string = '';
+  public gistId: string = '';
 
   constructor(private notepadService: NotepadService) {
   }
