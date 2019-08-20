@@ -1,5 +1,5 @@
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {AfterViewInit, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
 import {ValidatorHelper} from '@core/helpers/validator.helper';
 import {NoteFormDataModel} from '@core/models/note.models';
@@ -9,7 +9,7 @@ import {NoteFormDataModel} from '@core/models/note.models';
   templateUrl: './note-field.component.html',
   styleUrls: ['./note-field.component.scss']
 })
-export class NoteFieldComponent implements OnInit {
+export class NoteFieldComponent implements OnInit, AfterViewInit {
 
   public noteForm: FormGroup;
 
@@ -34,6 +34,10 @@ export class NoteFieldComponent implements OnInit {
     this.noteFormInit();
   }
 
+  ngAfterViewInit() {
+    this.onInputChange(this.title, this.description);
+  }
+
   public createNewNote(event): void {
     event.stopPropagation();
     event.preventDefault();
@@ -50,6 +54,20 @@ export class NoteFieldComponent implements OnInit {
       this.addNewNote.emit(this.noteForm.getRawValue());
       this.noteForm.reset();
     }
+  }
+
+  public onInputChange(title: string, description: string): void {
+    setTimeout(() => {
+      this.setValueAndUpdateValidity('title', title);
+      this.setValueAndUpdateValidity('description', description);
+    });
+  }
+
+  private setValueAndUpdateValidity(controlName: string, value: string): void {
+    const formControls = this.noteForm.controls;
+
+    formControls[controlName].setValue(value);
+    formControls[controlName].updateValueAndValidity();
   }
 
   private noteFormInit(): void {
