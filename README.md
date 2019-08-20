@@ -45,3 +45,4 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 
 ## Notes
 * For testing notepad page please do hard reload (load page without caches) 
+* The development and research processes lasted 10-11 hours
