@@ -40,6 +40,7 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 * For styling the app used Bootstrap 4. Styles mentioned in the description of the task is not fully implemented.
 * Always I'm creating core and shared modules (small shared modules) for Angular projects. But in our project scope I did not consider necessary for using them.  
 * I did not create models for GitHub Gists API responses. 
+* I did not create id for each note. But will be better to set unique id for each created note.
 * For showing charts used Angular-highcharts
 
 ## Notes

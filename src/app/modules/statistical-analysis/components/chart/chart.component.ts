@@ -56,6 +56,15 @@ export class ChartComponent implements OnInit {
     }
   }
 
+  public updateChartData(): void {
+    this.unsubscribe$.next();
+
+    this.refreshInterval$.subscribe((data) => {
+      this.dates.push(DateService.getMinutesAndSeconds());
+      this.addPoint(this.chartDataType === ChartDataType.FILES ? this.getCountOfFiles(data) : data.length);
+    });
+  }
+
   private getOptionsOfChart(): Highcharts.Options {
     return {
       chart: {
@@ -87,15 +96,6 @@ export class ChartComponent implements OnInit {
         }
       ]
     };
-  }
-
-  private updateChartData(): void {
-    this.unsubscribe$.next();
-
-    this.refreshInterval$.subscribe((data) => {
-      this.dates.push(DateService.getMinutesAndSeconds());
-      this.addPoint(this.chartDataType === ChartDataType.FILES ? this.getCountOfFiles(data) : data.length);
-    });
   }
 
   private getCountOfFiles(gists): number {
