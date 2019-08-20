@@ -41,7 +41,7 @@
   <div class="created-notes-wrapper col-md-12">
     <div class="row" *ngFor="let note of createdNotes;trackBy: trackByNotes; let i = index">
       <div class="col-md-8">
-        <app-note-field [title]="note?.title" [description]="note?.description"></app-note-field>
+        <app-note-field [title]="note?.title" (onNoteFieldChange)="updateExistedNoteData($event, i)" [description]="note?.description"></app-note-field>
       </div>
       <div class="col-md-4">
         <button class="btn btn-danger" (click)="deleteNote(i)">Delete</button>

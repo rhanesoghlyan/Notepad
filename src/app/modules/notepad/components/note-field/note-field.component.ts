@@ -24,6 +24,8 @@ export class NoteFieldComponent implements OnInit, AfterViewInit {
 
   @Output()
   public addNewNote: EventEmitter<NoteFormDataModel> = new EventEmitter<NoteFormDataModel>();
+  @Output()
+  public onNoteFieldChange: EventEmitter<NoteFormDataModel> = new EventEmitter<NoteFormDataModel>();
 
   public validationConfigs = ValidatorHelper.getNoteValidationConfigs();
 
@@ -35,7 +37,7 @@ export class NoteFieldComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.onInputChange(this.title, this.description);
+    this.setValuesToTheFields(this.title, this.description);
   }
 
   public createNewNote(event): void {
@@ -56,7 +58,13 @@ export class NoteFieldComponent implements OnInit, AfterViewInit {
     }
   }
 
-  public onInputChange(title: string, description: string): void {
+  public onFieldChange(controlName: string): void {
+    if (this.noteForm.controls[controlName].valid) {
+      this.onNoteFieldChange.emit(this.noteForm.getRawValue());
+    }
+  }
+
+  private setValuesToTheFields(title: string, description: string): void {
     setTimeout(() => {
       this.setValueAndUpdateValidity('title', title);
       this.setValueAndUpdateValidity('description', description);
