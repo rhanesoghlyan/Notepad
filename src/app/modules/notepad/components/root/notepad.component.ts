@@ -84,6 +84,10 @@ export class NotepadComponent implements OnInit {
     return index;
   }
 
+  public updateExistedNoteData(formData: NoteFormDataModel, index: number): void {
+    this.createdNotes[index] = formData;
+  }
+
   private createNotepad(title: string): void {
     this.notepadService.createNotepad(new NotepadGist(new NotepadResponseModel(title, [])))
       .subscribe((data) => {
